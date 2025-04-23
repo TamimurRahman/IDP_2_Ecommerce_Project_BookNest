@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from . models import Product
+from .forms import CustomerRegistrationForm
 
 def home(request):
     return render(request, 'app/home.html')
@@ -32,4 +33,7 @@ class ProductDetail(View):
         return render(request, 'app/productdetail.html',locals())
     
 
-
+class CustomerRegistationView(View):
+    def get(self, request):
+        form = CustomerRegistrationForm()
+        return render(request, 'app/customerregistration.html', locals())
