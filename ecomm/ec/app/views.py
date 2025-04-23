@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views import View
 from . models import Product
 from .forms import CustomerRegistrationForm
+from django.contrib import messages
 
 def home(request):
     return render(request, 'app/home.html')
@@ -37,3 +38,13 @@ class CustomerRegistationView(View):
     def get(self, request):
         form = CustomerRegistrationForm()
         return render(request, 'app/customerregistration.html', locals())
+    def post(self, request):
+        form = CustomerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Congratulations! You have registered successfully.')
+        else:
+            messages.warning(request, 'Invalid input data. Please try again.')
+        return render(request, 'app/customerregistration.html', locals())
+            
+        
