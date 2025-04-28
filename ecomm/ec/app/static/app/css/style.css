@@ -44,3 +44,16 @@
 .goodnesssec a {
     text-decoration: none;
 }
+.carousel-item img {
+    width: 100%;          /* Full width */
+    height: 400px;        /* Desktop standard height */
+    object-fit: cover;    /* Nicely fit the image without distortion */
+}
+
+/* Mobile responsive: */
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 120px;    /* Mobile standard height */
+    }
+}
+
