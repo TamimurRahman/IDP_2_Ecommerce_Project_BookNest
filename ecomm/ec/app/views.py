@@ -7,6 +7,9 @@ from . models import Product,Cart,Product
 from .forms import CustomerRegistrationForm,CustomerProfileForm
 from django.contrib import messages
 from .models import Customer
+from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
 def home(request):
@@ -103,9 +106,15 @@ class updateAddress(View):
 def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
-    product = Product.objects.get(id=product_id)
-    Cart(user=user,product=product).save()
+    product = get_object_or_404(Product, id=product_id)
+
+    cart_item, created = Cart.objects.get_or_create(user=user, product=product)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
     return redirect('/cart')
+
 
 def show_cart(request):
     user = request.user
@@ -117,10 +126,26 @@ def show_cart(request):
     totalamount = amount + 40
     return render(request, 'app/addtocart.html', locals())
 
+@csrf_exempt
 def plus_cart(request):
     if request.method == 'GET':
-        prod_id=request.GET['prod_id']
-        print(prod_id)
-        data={}
-        return JsonResponse(data)
-    
+        prod_id = request.GET['prod_id']
+        cart_item = Cart.objects.filter(product=prod_id, user=request.user).first()
+
+        if cart_item:
+            cart_item.quantity += 1
+            cart_item.save()
+
+            # Recalculate cart totals
+            cart = Cart.objects.filter(user=request.user)
+            amount = sum(item.quantity * item.product.discounted_price for item in cart)
+            totalamount = amount + 40
+
+            data = {
+                'quantity': cart_item.quantity,
+                'amount': amount,
+                'totalamount': totalamount
+            }
+            return JsonResponse(data)
+        else:
+            return JsonResponse({'error': 'Cart item not found'}, status=404)

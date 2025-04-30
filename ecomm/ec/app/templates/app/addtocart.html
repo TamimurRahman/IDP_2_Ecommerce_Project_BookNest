@@ -17,6 +17,7 @@
               <img src="{{ item.product.product_image.url }}" class="img-fluid img-thumbnail shadow-sm" height="150" width="150" alt="">
             </div>
             <div class="col-sm-9">
+              <h5 class="mb-1">{{ item.product.title }}</h5>
               <p class="mb-2 text-muted small">{{ item.product.description }}</p>
               <div class="my-3">
                 <label for="quantity">Quantity:</label>
@@ -30,6 +31,7 @@
               </div>
             </div>
           </div>
+          
           <hr class="text-muted">
           {% endfor %}
         </div>
