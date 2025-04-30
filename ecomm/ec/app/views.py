@@ -1,9 +1,9 @@
 from django.db.models import Count
 from urllib import request
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render,redirect,get_object_or_404
 from django.views import View
-from . models import Product
+from . models import Product,Cart,Product
 from .forms import CustomerRegistrationForm,CustomerProfileForm
 from django.contrib import messages
 from .models import Customer
@@ -101,4 +101,26 @@ class updateAddress(View):
         return redirect("address")
 
 def add_to_cart(request):
-    pass
+    user = request.user
+    product_id = request.GET.get('prod_id')
+    product = Product.objects.get(id=product_id)
+    Cart(user=user,product=product).save()
+    return redirect('/cart')
+
+def show_cart(request):
+    user = request.user
+    cart = Cart.objects.filter(user=user)
+    amount = 0
+    for p in cart:
+        value = p.quantity * p.product.discounted_price
+        amount += value
+    totalamount = amount + 40
+    return render(request, 'app/addtocart.html', locals())
+
+def plus_cart(request):
+    if request.method == 'GET':
+        prod_id=request.GET['prod_id']
+        print(prod_id)
+        data={}
+        return JsonResponse(data)
+    
