@@ -19,6 +19,8 @@ urlpatterns = [
    path('cart/', views.show_cart, name='showcart'),
    path('checkout/', views.show_cart,name = "checkout" ),
    path('pluscart/', views.plus_cart),
+   path('minuscart/', views.minus_cart),
+
    
    #login authentication
    path('registration/', views.CustomerRegistationView.as_view(), name='customerregistration'),

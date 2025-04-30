@@ -149,3 +149,26 @@ def plus_cart(request):
             return JsonResponse(data)
         else:
             return JsonResponse({'error': 'Cart item not found'}, status=404)
+@csrf_exempt
+def minus_cart(request):
+    if request.method == 'GET':
+        prod_id = request.GET['prod_id']
+        cart_item = Cart.objects.filter(product=prod_id, user=request.user).first()
+
+        if cart_item:
+            cart_item.quantity -= 1
+            cart_item.save()
+
+            # Recalculate cart totals
+            cart = Cart.objects.filter(user=request.user)
+            amount = sum(item.quantity * item.product.discounted_price for item in cart)
+            totalamount = amount + 40
+
+            data = {
+                'quantity': cart_item.quantity,
+                'amount': amount,
+                'totalamount': totalamount
+            }
+            return JsonResponse(data)
+        else:
+            return JsonResponse({'error': 'Cart item not found'}, status=404)
