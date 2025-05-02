@@ -2,6 +2,9 @@
     width:100%;
 
 }
+.navbar-gradient {
+  background: linear-gradient(to right, #1b1e62, #2d2f8c);
+}
 .buttermilk {
     background-color: #fff;
     background-image: linear-gradient(#fff7ef, #fff);
@@ -46,9 +49,103 @@
 }
 .carousel-item img {
     width: 100%;          /* Full width */
-    height: 400px;        /* Desktop standard height */
+    height: 750px;        /* Desktop standard height */
     object-fit: cover;    /* Nicely fit the image without distortion */
 }
+
+.carousel-inner {
+    width: 100%;
+    max-height: 700px; /* adjust height as needed */
+    overflow: hidden;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* makes the image cover fully without stretching */
+}
+
+.site-footer {
+    background-color: #1d4c8d;
+    color: #d6e4f0;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .footer-section {
+    flex: 1 1 220px;
+  }
+  
+  .footer-section h3,
+  .footer-section h4 {
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .footer-section p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-section ul li {
+    margin-bottom: 8px;
+  }
+  
+  .footer-section ul li a {
+    color: #d6e4f0;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .footer-section ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  .social-icons a {
+    margin-right: 12px;
+    color: #d6e4f0;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 30px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #a0bcd6;
+  }
+  
+  .footer-links {
+    margin-top: 10px;
+  }
+  
+  .footer-links a {
+    margin: 0 10px;
+    color: #a0bcd6;
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+  
 
 /* Mobile responsive: */
 @media (max-width: 768px) {

@@ -4,45 +4,66 @@
 {% block title %}Category{% endblock title %}
 
 {% block main-content %}
-<div class="container">
+<div class="container mt-5 pt-5">
     <div class="row justify-content-between">
         <!-- Product Image -->
-        <div class="img2 col-lg-5 mt-5">
+        <div class="col-lg-5 mt-4">
             <img src="{{ product.product_image.url }}" class="img-fluid w-100 h-75 mt-3" alt="{{ product.title }}">
         </div>
 
         <!-- Product Details -->
-        <div class="productdetail col-lg-5 mt-5">
-            <h1 style="font-family: Georgia; font-size: 48px;">{{ product.title }}</h1>
-            <h5>Tk. {{ product.discounted_price }}/-</h5>
+        <div class="col-lg-6 mt-4">
+            <h1 style="font-family: Georgia; font-size: 2.8rem;">{{ product.title }}</h1>
+            <h5 class="text-muted">Author: {{ product.author }}</h5>
+            <h5 class="text-success">Tk. {{ product.discounted_price }}/-</h5>
             <small class="text-decoration-line-through text-muted fs-5">
                 <del>Tk. {{ product.selling_price }}/-</del>
             </small>
 
-            <br><br>
-            <h4>Product Features</h4>
-            <ul class="fs-5" style="font-family: Rajdhani;">
-                <li>{{ product.description }}</li>
+            <hr>
+
+            <!-- Tab Navigation -->
+            <ul class="nav nav-tabs mb-3" id="productTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description"
+                        type="button" role="tab" aria-controls="description" aria-selected="true">
+                        Description
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details"
+                        type="button" role="tab" aria-controls="details" aria-selected="false">
+                        Details
+                    </button>
+                </li>
             </ul>
 
-            <!-- Add-to-Cart or other buttons can go here -->
-           
-                <!-- Add to Cart Button (Red) -->
-                <form action="/add-to-cart" method="get" class="d-inline">
-                    <input type="hidden" name="prod_id" value="{{ product.id }}"/>
-                    <button type="submit" class="btn btn-danger p-2 m-1 btn-lg w-100">
-                        Add to Cart
-                    </button>
-                </form>
-            
-                <!-- Buy Now Button (Yellow) -->
-                <a href="{% url 'showcart'%}" class="btn btn-warning p-2 m-1 btn-lg w-100 text-white text-decoration-none w-100">
-                    Buy Now
-                </a>
+            <!-- Tab Content -->
+            <div class="tab-content border p-3 mb-3" id="productTabContent">
+                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                    <p>{{ product.description }}</p>
+                </div>
+                <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+                    <ul class="list-unstyled">
+                        <li><strong>Format:</strong> {{ product.format }}</li>
+                        <li><strong>Pages:</strong> {{ product.pages }}</li>
+                        <li><strong>Dimensions:</strong> {{ product.dimensions }}</li>
+                        <li><strong>Publication:</strong> {{ product.publication_date }}</li>
+                        <li><strong>ISBN:</strong> {{ product.isbn }}</li>
+                        <li><strong>Language:</strong> {{ product.language }}</li>
+                    </ul>
+                </div>
             </div>
-            
-            
+
+            <!-- Buttons -->
+            <form action="/add-to-cart" method="get" class="d-inline">
+                <input type="hidden" name="prod_id" value="{{ product.id }}">
+                <button type="submit" class="btn btn-danger btn-lg w-100 mb-2">Add to Cart</button>
+            </form>
+            <a href="{% url 'showcart' %}" class="btn btn-warning btn-lg w-100 text-white text-decoration-none">Buy Now</a>
         </div>
     </div>
 </div>
+<br><br><br>
 {% endblock main-content %}
+

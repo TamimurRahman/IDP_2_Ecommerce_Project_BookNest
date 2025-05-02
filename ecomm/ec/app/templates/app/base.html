@@ -18,11 +18,12 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-gradient fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="{% static 'app/images/bookNest.png' %}" alt="Logo" width="100" height="50">
-            </a>
+          <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="{% static 'app/images/banner/BrandName.png' %}" alt="Logo" width="250" height="50" class="me-2">
+            
+        </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -37,14 +38,12 @@
                   Products
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'category' 'ML'%}">Milk</a></li>
-                  <li><a class="dropdown-item" href="{% url 'category' 'CR'%}">Curd</a></li>
-                  <li><a class="dropdown-item" href="{% url 'category' 'MS'%}">Milkshake</a></li>
-                  <li><a class="dropdown-item" href="{% url 'category' 'LS'%}">Lassi</a></li>
-                  <li><a class="dropdown-item" href="{% url 'category' 'GH'%}">Ghee</a></li>
-                  <li><a class="dropdown-item" href="{% url 'category' 'PN'%}">Paneer</a></li>
-                  <li><a class="dropdown-item" href="{% url 'category' 'CZ'%}">Cheese</a></li>
-                  <li><a class="dropdown-item" href="{% url 'category' 'IC'%}">Ice-creams</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'FI'%}">Fiction</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'NF'%}">Non-Fiction</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'SF'%}">Science-Fiction</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'HI'%}">History</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'FA'%}">Fantasy</a></li>
+
                 </ul>
               </li>
               <li class="nav-item">
@@ -97,21 +96,77 @@
           
         </div>
     </nav>
-
+<br><br><br>
     {% block banner-slider %}{% endblock banner-slider %}
     {% block information %}{% endblock information %}
     {% block main-content %}{% endblock main-content %}
 
-
-    <footer class="text-center fixed-bottom py-3 bg-light mt-4">
-        Copyright &copy; 2023 BookNest. All rights reserved.
+    
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-section brand">
+          <h3>BookNest</h3>
+          <p>Supporting local independent bookshops and giving back to the book community.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+    
+        <div class="footer-section">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#">Books</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Bestsellers</a></li>
+            <li><a href="#">New Releases</a></li>
+            <li><a href="#">Pre-orders</a></li>
+          </ul>
+        </div>
+    
+        <div class="footer-section">
+          <h4>About</h4>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Impact</a></li>
+            <li><a href="#">Our Bookshops</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+    
+        <div class="footer-section">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="{% url 'contact' %}">Help Center</a></li>
+            <li><a href="{% url 'contact' %}">Order Status</a></li>
+            <li><a href="{% url 'contact' %}">Shipping & Returns</a></li>
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            <li><a href="{% url 'contact' %}">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="footer-bottom">
+        <p>&copy; 2025 BookNest. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="/">Privacy Policy</a>
+          <a href="/">Terms of Service</a>
+          <a href="/">Cookie Policy</a>
+        </div>
+      </div>
     </footer>
-
+    
+    
     <!-- JS Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js" integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    
 
     <script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'app/js/all.min.js' %}"></script>

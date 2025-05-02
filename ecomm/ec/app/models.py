@@ -14,16 +14,12 @@ STATE_CHOICES = (
 
 
 CATEGORY_CHOICES = (
-    ('ML', 'Milk'),
-    ('CR', 'Curd'),
-    ('LS', 'Lassi'),
-    ('MS', 'Milkshake'),
-    ('PN', 'Paneer'),
-    ('GH', 'Ghee'),
-    ('CZ', 'Cheese'),
-    ('IC', 'Ice-Creams'),
+    ('FI', 'Fiction'),
+    ('NF', 'Non-Fiction'),
+    ('SF', 'Science-Fiction'),
+    ('HI', 'History'),
+    ('FA', 'Fantasy'),
 )
-
 
 
 
@@ -33,9 +29,18 @@ class Product(models.Model):
     discounted_price = models.FloatField()
     description = models.TextField()
     composition = models.TextField(default="")
+    author = models.CharField(max_length=100, blank=True, null=True)
     prodapp = models.TextField(default="")
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
     product_image = models.ImageField(upload_to='product/')
+    
+    # Add these new fields
+    format = models.CharField(max_length=50, default='Hardcover')
+    pages = models.IntegerField(default=100)
+    dimensions = models.CharField(max_length=100, default='6.25 × 9.25 inches')
+    publication_date = models.DateField(null=True, blank=True)
+    isbn = models.CharField(max_length=20, default='000-0000000000')
+    language = models.CharField(max_length=50, default='English')
 
     def __str__(self):
         return self.title
@@ -59,3 +64,4 @@ class Cart(models.Model):
 @property
 def total_cost(self):
     return self.quantity * self.product.discounted_price
+

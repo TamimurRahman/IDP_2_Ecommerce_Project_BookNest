@@ -5,118 +5,187 @@
 {% block banner-slider %}
 
 <div id="carouselExample" class="carousel slide carousel-fade" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="{% static 'app/images/banner/b1.png' %}" class="d-block w-100" alt="banner image">
-    </div>
-    <div class="carousel-item">
-      <img src="{% static 'app/images/banner/b2.png' %}" class="d-block w-100" alt="banner image">
-    </div>
-    <div class="carousel-item">
-      <img src="{% static 'app/images/banner/b3.png' %}" class="d-block w-100" alt="banner image">
-    </div>
-    <div class="carousel-item">
-      <img src="{% static 'app/images/banner/b4.png' %}" class="d-block w-100" alt="banner image">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://images-production.bookshop.org/spree/promo_banner_slides/desktop_images/319/original/ttwh_bookshop_hero_2048x600_v2.jpg?1745933739" class="d-block w-100" alt="banner image">
+      </div>
+      <div class="carousel-item">
+        <img src="https://images-production.bookshop.org/spree/promo_banner_slides/desktop_images/315/original/IWishYouMore_BookshopHeroBanner_2048x600.jpg?1745933629" class="d-block w-100" alt="banner image">
+      </div>
     </div>
   </div>
-</div>
 
 {% endblock banner-slider %}
 
 {% block information %}
-<div class='container'>
-    <div class='row bg-success text-center p-5 text-white border-bottom shadow'>
-        <h1>Products</h1>
-        <small class='fs-5'>Dodla offers a wide range of products in both liquid and solid forms. We have a variety of products to suit your needs.
-
-        Dodla is a trusted name in the dairy industry, and we are committed to providing our customers with the best quality products. Our products are made from
-         the freshest milk and are free from preservatives and artificial flavors.</small>    
+<div class="container">
+    <div class="row bg-success text-center p-5 text-white shadow">
+        <div class="col">
+            <h1 class="fw-bold mb-3">Explore Our Book Categories</h1>
+            <p class="fs-5">
+                BookNest brings you a wide variety of books—from thrilling fiction to inspiring non-fiction. All our books are carefully selected to ensure quality and satisfaction.
+            </p>
+        </div>
     </div>
-
 </div>
+<br><br>
 {% endblock information %}
 
 {% block main-content %}
 <div class="container">
-    <h2 class="text-center">Dairy Products</h2>
+    <h2 class="text-center">Browse Book Categories</h2>
     <br><br>
     <div class="row container">
         <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
              data-wow-duration="1s" data-wow-delay="0.6s"
              style="animation-duration: 1s; animation-delay: 0.6s;">
             <div class="goodnesssec buttermilk curdbgpro">
-                <a href="{% url 'category' 'GH'%}">
+                <a href="{% url 'category' 'FI'%}">
                     <div class="goodnessseccont text-center">
-                        <img src="{% static 'app/images/product/buffalo-ghee.png' %}" class="img-responsive center-block" alt="Ghee">
-                        <p class="mlkpro">Ghee</p>
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1586722975i/2767052.jpg" class="img-responsive center-block" alt="Fiction">
+                        <p class="mlkpro">Fiction</p>
                     </div>
                 </a>
             </div>
-            </div>
-            <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
+        </div>
+
+        <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
              data-wow-duration="1s" data-wow-delay="0.6s"
              style="animation-duration: 1s; animation-delay: 0.6s;">
             <div class="goodnesssec buttermilk smbg">
-                <a href="{% url 'category' 'CR'%}">
+                <a href="{% url 'category' 'PO'%}">
                     <div class="goodnessseccont text-center">
-                        <img src="{% static 'app/images/product/curd-total.png' %}" class="img-responsive center-block" alt="Ghee">
-                        <p class="mlkpro">CURD</p>
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1714150081i/211809571.jpg" class="img-responsive center-block" alt="Poetry">
+                        <p class="mlkpro">Science Fiction</p>
                     </div>
                 </a>
             </div>
-          </div>
-            <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
+        </div>
+
+        <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
              data-wow-duration="1s" data-wow-delay="0.6s"
              style="animation-duration: 1s; animation-delay: 0.6s;">
             <div class="goodnesssec buttermilk buttermilk">
-                <a href="{% url 'category' 'IC'%}">
+                <a href="{% url 'category' 'NF'%}">
                     <div class="goodnessseccont text-center">
-                        <img src="{% static 'app/images/product/kulfi.png' %}" class="img-responsive center-block" alt="Ghee">
-                        <p class="mlkpro">Ice Crems</p>
+                        <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1724259520l/216247552._SY475_.jpg" class="img-responsive center-block" alt="Non-fiction">
+                        <p class="mlkpro">Non-Fiction</p>
                     </div>
                 </a>
             </div>
         </div>
-        </div>
-        <br><br>
-        <div class="row container">
-          <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
-               data-wow-duration="1s" data-wow-delay="0.6s"
-               style="animation-duration: 1s; animation-delay: 0.6s;">
-              <div class="goodnesssec buttermilk curdbgpro">
-                <a href="{% url 'category' 'MS'%}">
-                      <div class="goodnessseccont text-center">
-                          <img src="{% static 'app/images/product/milk-shake-chocolate.png' %}" class="img-responsive center-block" alt="Ghee">
-                          <p class="mlkpro">Milkshake</p>
-                      </div>
-                  </a>
-              </div>
-              </div>
-              <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
-              data-wow-duration="1s" data-wow-delay="0.6s"
-              style="animation-duration: 1s; animation-delay: 0.6s;">
-             <div class="goodnesssec buttermilk curdbgpro">
-               <a href="{% url 'category' 'ML'%}">
-                     <div class="goodnessseccont text-center">
-                         <img src="{% static 'app/images/product/milk-shake-strawberry.png' %}" class="img-responsive center-block" alt="Ghee">
-                         <p class="mlkpro">Milk</p>
-                     </div>
-                 </a>
-             </div>
-             </div>
-              <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
-               data-wow-duration="1s" data-wow-delay="0.6s"
-               style="animation-duration: 1s; animation-delay: 0.6s;">
-              <div class="goodnesssec buttermilk buttermilk">
-                <a href="{% url 'category' 'IC'%}">
-                      <div class="goodnessseccont text-center">
-                          <img src="{% static 'app/images/product/icbars.png' %}" class="img-responsive center-block" alt="Ghee">
-                          <p class="mlkpro">Icebar</p>
-                      </div>
-                  </a>
-              </div>
-          </div>
-          </div>
-
     </div>
+
+    <br><br>
+
+    <div class="row container">
+        <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
+             data-wow-duration="1s" data-wow-delay="0.6s"
+             style="animation-duration: 1s; animation-delay: 0.6s;">
+            <div class="goodnesssec buttermilk curdbgpro">
+                <a href="{% url 'category' 'MY'%}">
+                    <div class="goodnessseccont text-center">
+                        <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1725143648l/215149209._SY475_.jpg" class="img-responsive center-block" alt="Mythology">
+                        <p class="mlkpro">Mythology</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
+             data-wow-duration="1s" data-wow-delay="0.6s"
+             style="animation-duration: 1s; animation-delay: 0.6s;">
+            <div class="goodnesssec buttermilk curdbgpro">
+                <a href="{% url 'category' 'CH'%}">
+                    <div class="goodnessseccont text-center">
+                        <img src="https://cdn.shopify.com/s/files/1/2081/8163/files/001-HIDE-AND-SEEK-free-childrens-books-1.jpg?v=1589846879" class="img-responsive center-block" alt="Children's Books">
+                        <p class="mlkpro">Children's Books</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 mi-go WOW fadeInUp"
+             data-wow-duration="1s" data-wow-delay="0.6s"
+             style="animation-duration: 1s; animation-delay: 0.6s;">
+            <div class="goodnesssec buttermilk buttermilk">
+                <a href="{% url 'category' 'HI'%}">
+                    <div class="goodnessseccont text-center">
+                        <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1731338287l/216522761._SY475_.jpg" class="img-responsive center-block" alt="History">
+                        <p class="mlkpro">History</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container-fluid bg-light py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Text Section -->
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h2 class="fw-bold">About BookNest</h2>
+          <p class="mb-3">
+            BookNest is an online bookstore with a mission to financially support local, independent bookshops.
+            We believe that bookshops are essential to a healthy culture, and we're dedicated to helping them thrive.
+          </p>
+          <p class="mb-4">
+            Every time you buy a book on BookNest, your purchase helps support independent bookshops across the country.
+            We partner directly with shops to ensure they receive the full benefit from every sale.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <div class="bg-white shadow-sm p-3 rounded text-center" style="min-width: 120px;">
+              <h5 class="text-primary fw-bold">$25M+</h5>
+              <small class="text-muted">Earned for bookshops</small>
+            </div>
+            <div class="bg-white shadow-sm p-3 rounded text-center" style="min-width: 120px;">
+              <h5 class="text-primary fw-bold">1,500+</h5>
+              <small class="text-muted">Bookshop partners</small>
+            </div>
+            <div class="bg-white shadow-sm p-3 rounded text-center" style="min-width: 120px;">
+              <h5 class="text-primary fw-bold">3.2M+</h5>
+              <small class="text-muted">Books sold</small>
+            </div>
+          </div>
+        </div>
+        <!-- Image Section -->
+        <div class="col-lg-6">
+          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1170&auto=format&fit=crop" alt="Bookshelf" class="img-fluid rounded shadow">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+ 
+  <div class="container my-5">
+    <h2 class="fw-bold text-center mb-5">Featured Bookshop</h2>
+    <div class="row align-items-center">
+      <!-- Image Column -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <img src=" https://images.unsplash.com/photo-1526243741027-444d633d7365?q=80&w=1171&auto=format&fit=crop" alt="Featured Bookshop" class="img-fluid rounded shadow">
+      </div>
+  
+      <!-- Text Column -->
+      <div class="col-md-6">
+        <h5 class="fw-bold">The Book Nook</h5>
+        <p class="text-muted mb-1">123 Reader St, Bookville, NY 10001</p>
+        <p>
+          We're an independent bookstore founded in 2008 with a passion for connecting readers with books they'll love.
+          Our carefully curated selection spans all genres, with a special focus on diverse voices and local authors.
+        </p>
+        <p><strong>Hours:</strong> Mon–Sat: 10am–8pm, Sun: 11am–6pm</p>
+        <p><strong>Phone:</strong> (555) 123–4567</p>
+        <p><strong>Email:</strong> info@booknook.com</p>
+        <p><strong>Website:</strong> www.booknook.com</p>
+      </div>
+    </div>
+  </div>
+  
+
+  
 {% endblock main-content %}

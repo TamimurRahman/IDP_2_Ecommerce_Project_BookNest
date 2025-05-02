@@ -10,6 +10,8 @@ from .models import Customer
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.db import models
+from django.contrib.auth.models import User
 
 
 def home(request):
@@ -126,6 +128,18 @@ def show_cart(request):
     totalamount = amount + 40
     return render(request, 'app/addtocart.html', locals())
 
+class checkout(View):
+    def get(self, request):
+        user = request.user
+        add = Customer.objects.filter(user=user)
+        cart_items = Cart.objects.filter(user=user)
+        famount = 0
+        for p in cart_items:
+            value = p.quantity * p.product.discounted_price
+            famount += value
+        totalamount = famount + 40 if cart_items.exists() else 0
+        return render(request, 'app/checkout.html', locals())
+    
 @csrf_exempt
 def plus_cart(request):
     if request.method == 'GET':
@@ -172,3 +186,58 @@ def minus_cart(request):
             return JsonResponse(data)
         else:
             return JsonResponse({'error': 'Cart item not found'}, status=404)
+@csrf_exempt
+def remove_cart(request):
+    if request.method == 'GET':
+        prod_id = request.GET.get('prod_id')
+        cart_item = Cart.objects.filter(product=prod_id, user=request.user).first()
+
+        if cart_item:
+            cart_item.delete()
+
+        # Recalculate totals after deletion
+        cart = Cart.objects.filter(user=request.user)
+        amount = sum(item.quantity * item.product.discounted_price for item in cart)
+        shipping = 40 if amount > 0 else 0
+        totalamount = amount + shipping
+
+        data = {
+            'amount': amount,
+            'shipping': shipping,
+            'totalamount': totalamount,
+            'cart_empty': not cart.exists()
+        }
+        return JsonResponse(data)
+    
+STATUS_CHOICES = (
+    ('Pending', 'Pending'),
+    ('Accepted', 'Accepted'),
+    ('Packed', 'Packed'),
+    ('On The Way', 'On The Way'),
+    ('Delivered', 'Delivered'),
+    ('Cancelled', 'Cancelled'),
+)
+
+class Payment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.FloatField()
+    razorpay_order_id = models.CharField(max_length=100, blank=True, null=True)
+    razorpay_payment_status = models.CharField(max_length=100, blank=True, null=True)
+    razorpay_payment_id = models.CharField(max_length=100, blank=True, null=True)
+    paid = models.BooleanField(default=False)
+
+   
+class OrderPlaced(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    ordered_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Pending')
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, default="")
+
+    @property
+    def total_cost(self):
+        return self.quantity * self.product.discounted_price
+
+
