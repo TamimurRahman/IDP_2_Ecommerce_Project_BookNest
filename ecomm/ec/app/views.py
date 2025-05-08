@@ -12,6 +12,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.db import models
 from django.contrib.auth.models import User
+#for pamentgateway implementation
+from .models import Payment, Cart, OrderPlaced
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .models import Payment
+
 
 
 def home(request):
@@ -140,6 +146,10 @@ class checkout(View):
         totalamount = famount + 40 if cart_items.exists() else 0
         return render(request, 'app/checkout.html', locals())
     
+def orders(request):
+    order_placed = OrderPlaced.objects.filter(user=request.user)
+    return render(request,'app/orders.html',locals())
+    
 @csrf_exempt
 def plus_cart(request):
     if request.method == 'GET':
@@ -209,35 +219,40 @@ def remove_cart(request):
         }
         return JsonResponse(data)
     
-STATUS_CHOICES = (
-    ('Pending', 'Pending'),
-    ('Accepted', 'Accepted'),
-    ('Packed', 'Packed'),
-    ('On The Way', 'On The Way'),
-    ('Delivered', 'Delivered'),
-    ('Cancelled', 'Cancelled'),
-)
 
-class Payment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    amount = models.FloatField()
-    razorpay_order_id = models.CharField(max_length=100, blank=True, null=True)
-    razorpay_payment_status = models.CharField(max_length=100, blank=True, null=True)
-    razorpay_payment_id = models.CharField(max_length=100, blank=True, null=True)
-    paid = models.BooleanField(default=False)
 
-   
-class OrderPlaced(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    ordered_date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Pending')
-    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, default="")
 
-    @property
-    def total_cost(self):
-        return self.quantity * self.product.discounted_price
+#here apply ssclecommerz payment gateway
+@login_required
+def payment_confirm(request):
+    if request.method == "POST":
+        method = request.POST.get("payment_method")
+        phone = request.POST.get("phone_number")
+        tx_id = request.POST.get("transaction_id")
+        custid = request.POST.get("custid")
+        total = request.POST.get("totamount")
+
+        # Save payment
+        payment = Payment.objects.create(
+            user=request.user,
+            amount=total,
+            payment_method=method,
+            phone_number=phone,
+            transaction_id=tx_id,
+            paid=True
+        )
+
+        # Place orders
+        cart_items = Cart.objects.filter(user=request.user)
+        for item in cart_items:
+            OrderPlaced.objects.create(
+                user=request.user,
+                customer_id=custid,
+                product=item.product,
+                quantity=item.quantity,
+                payment=payment
+            )
+        cart_items.delete()
+        return redirect("orders")
 
 

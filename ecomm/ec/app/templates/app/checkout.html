@@ -48,6 +48,7 @@
           </div>
           <div class="form-check mt-2 mb-4">
             <input class="form-check-input" type="radio" name="custid" id="custadd{{ forloop.counter }}" value="{{ ad.id }}">
+            
             <label class="form-check-label fw-bold" for="custadd{{ forloop.counter }}">
               Address: {{ forloop.counter }}
             </label>
@@ -60,10 +61,59 @@
         </div>
 
         <div class="text-end">
-          <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
+          <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Payment</button>
         </div>
       </form>
+      <!-- Payment Popup Modal -->
+<div id="paymentModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
+  <div class="modal-content" style="background:#fff; padding:20px; width:400px; margin:10% auto;">
+    <h5>Select Payment Method</h5>
+    <form method="post" action="{% url 'payment-confirm' %}">
+      {% csrf_token %}
+      <div class="mb-2">
+        <label>Payment Method</label>
+        <select class="form-select" name="payment_method" required>
+          <option value="">Select</option>
+          <option value="Bkash">Bkash</option>
+          <option value="Rocket">Rocket</option>
+          <option value="Nagad">Nagad</option>
+        </select>
+      </div>
+      <div class="mb-2">
+        <label>Sender Phone Number</label>
+        <input type="text" class="form-control" name="phone_number" placeholder="+8801XXXXXXXXX" required>
+      </div>
+      <div class="mb-2">
+        <label>Transaction ID</label>
+        <input type="text" class="form-control" name="transaction_id" required>
+      </div>
+      <input type="hidden" name="custid" id="hiddenCustid">
+      <input type="hidden" name="totamount" value="{{ totalamount }}">
+      <button type="submit" class="btn btn-success">Submit Payment</button>
+      <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.getElementById("myform").addEventListener("submit", function(e){
+    e.preventDefault(); // prevent default submit
+    let checkedRadio = document.querySelector('input[name="custid"]:checked');
+    if (!checkedRadio) {
+      alert("Please select a shipping address.");
+      return;
+    }
+    document.getElementById("hiddenCustid").value = checkedRadio.value;
+    document.getElementById("paymentModal").style.display = 'block';
+  });
+
+  function closeModal() {
+    document.getElementById("paymentModal").style.display = 'none';
+  }
+</script>
+
     </div>
   </div>
 </div>
+<br>
 {% endblock main-content %}

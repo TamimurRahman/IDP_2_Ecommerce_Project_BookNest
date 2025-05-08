@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField,PasswordChangeForm,SetPasswordForm,PasswordResetForm
 from django.contrib.auth.models import User
 from .models import Customer
+
 class LoginForm(AuthenticationForm):
     username = UsernameField(widget=forms.TextInput(attrs={'autofocus': 'True', 'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete':'current-password','class': 'form-control'}))
@@ -83,3 +84,11 @@ class CustomerProfileForm(forms.ModelForm):
             'state': forms.Select(attrs={'class': 'form-control'}),
             'zipcode': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+
+#payment
+
+class PaymentForm(forms.Form):
+    payment_method = forms.ChoiceField(choices=[('Bkash', 'Bkash'), ('Rocket', 'Rocket'), ('Nagad', 'Nagad')])
+    phone_number = forms.CharField(max_length=20)
+    transaction_id = forms.CharField(max_length=100)
+

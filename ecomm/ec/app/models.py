@@ -1,5 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+from django.contrib.auth.models import User
+from django.db import models
+from django.contrib.auth.models import User
+from django.db import models
+from django.contrib.auth.models import User
+
+#from ecomm.ec.app.views import STATUS_CHOICES
+#payment
+from django.utils.timezone import now
 # Create your models here.
 STATE_CHOICES = (
     ('Barisal', 'Barisal'),
@@ -20,7 +30,6 @@ CATEGORY_CHOICES = (
     ('HI', 'History'),
     ('FA', 'Fantasy'),
 )
-
 
 
 class Product(models.Model):
@@ -65,3 +74,66 @@ class Cart(models.Model):
 def total_cost(self):
     return self.quantity * self.product.discounted_price
 
+#payment
+class Payment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.FloatField()
+    payment_method = models.CharField(max_length=50)  # Bkash/Nagad/etc.
+    phone_number = models.CharField(max_length=20)
+    transaction_id = models.CharField(max_length=100)
+    paid = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.transaction_id}"
+    
+    
+#payment
+STATUS_CHOICES = (
+    ('Accepted', 'Accepted'),
+    ('Packed', 'Packed'),
+    ('On The Way', 'On The Way'),
+    ('Delivered', 'Delivered'),
+    ('Cancelled', 'Cancelled'),
+)
+
+class OrderPlaced(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    ordered_date = models.DateTimeField(default=now)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Pending')
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.product.title}"
+
+    @property
+    def total_cost(self):
+        return self.quantity * self.product.discounted_price
+    
+class OrderPlaced(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    ordered_date = models.DateTimeField(auto_now_add=True)
+    
+    STATUS_CHOICES = (
+        ('Pending', 'Pending'),
+        ('Accepted', 'Accepted'),
+        ('Packed', 'Packed'),
+        ('On The Way', 'On The Way'),
+        ('Delivered', 'Delivered'),
+        ('Cancel', 'Cancel'),
+    )
+    
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Pending')
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE)
+
+    @property
+    def total_cost(self):
+        return self.quantity * self.product.discounted_price
+
+    def __str__(self):
+        return f"{self.user.username} - {self.product.title}"
