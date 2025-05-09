@@ -57,3 +57,34 @@ $('.remove-cart').click(function () {
         }
     });
 });
+
+$('.plus-wishlist').click(function () {
+    var id = $(this).attr("pid").toString();
+
+    $.ajax({
+        type: "GET",
+        url: "/pluswishlist/",
+        data: {
+            prod_id: id
+        },
+        success: function (data) {
+            alert(data.message);  // or update the UI dynamically
+            window.location.reload();  // Optional: reload page to reflect wishlist change
+        }
+    });
+});
+$('.minus-wishlist').click(function () {
+    var id = $(this).attr("pid").toString();
+
+    $.ajax({
+        type: "GET",
+        url: "/minuswishlist/",
+        data: {
+            prod_id: id
+        },
+        success: function (data) {
+            alert(data.message);  // or update the UI dynamically
+            window.location.reload();  // Optional: reload page to reflect wishlist change
+        }
+    });
+});

@@ -1,5 +1,6 @@
+from django.contrib.auth.models import Group
 from django.contrib import admin
-from .models import Cart, OrderPlaced, Payment,Product,Customer
+from .models import Cart, OrderPlaced, Payment,Product,Customer,Wishlist
 # Register your models here.
 
 @admin.register(Product)
@@ -21,6 +22,13 @@ class CartModelAdmin(admin.ModelAdmin):
 class OrderPlacedModelAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'customer', 'product', 'quantity', 'ordered_date', 'status', 'payment']
 
+
+
+@admin.register(Wishlist)
+class WishlistAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'product']
+    
+admin.site.unregister(Group)
 '''
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):

@@ -1,5 +1,6 @@
 
 from django.urls import path
+from django.contrib import admin
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,6 +26,9 @@ urlpatterns = [
    path('payment-confirm/', views.payment_confirm, name='payment-confirm'),
    #after payment
    path('orders/',views.orders, name = 'orders'),
+   path('pluswishlist/',views.plus_wishlist),
+   path('minuswishlist/',views.minus_wishlist),
+   path('search/',views.search,name='search'),
 
    
    #login authentication
@@ -65,3 +69,7 @@ urlpatterns = [
     ),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = 'BookNest Admin Panel'
+admin.site.site_title = 'BookNest'
+admin.site.site_index_title = "Welcome to BookNest.com"
