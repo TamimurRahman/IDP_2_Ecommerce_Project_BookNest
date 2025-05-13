@@ -19,7 +19,7 @@ from django.shortcuts import render, redirect
 from .models import Payment,Wishlist
 
 
-@login_required
+
 def home(request):
     totalitem = 0
     wishitem=0
@@ -28,7 +28,7 @@ def home(request):
         wishitem = len(Wishlist.objects.filter(user=request.user))
     return render(request, "app/home.html", locals())
 
-@login_required
+
 def about(request):
     totalitem = 0
     wishitem=0
@@ -37,7 +37,7 @@ def about(request):
         wishitem = len(Wishlist.objects.filter(user=request.user))
     return render(request, "app/about.html", locals())
 
-@login_required
+
 def contact(request):
     totalitem = 0
     if request.user.is_authenticated:
@@ -45,7 +45,6 @@ def contact(request):
         wishitem = len(Wishlist.objects.filter(user=request.user))
     return render(request, "app/contact.html", locals())
 
-@method_decorator(login_required,name='dispatch')
 class CategoryView(View):
     def get(self, request,val):
         totalitem = 0
@@ -57,7 +56,6 @@ class CategoryView(View):
         title = Product.objects.filter(category=val).values('title')
         return render(request, 'app/category.html',locals())
     
-@method_decorator(login_required,name='dispatch')
 class CategoryTitle(View):
     def get(self, request, val):
         # Get products matching the selected category
@@ -71,7 +69,6 @@ class CategoryTitle(View):
             wishitem = len(Wishlist.objects.filter(user=request.user))
         return render(request, "app/category.html", locals())
     
-@method_decorator(login_required,name='dispatch')
 class ProductDetail(View):
     def get(self, request,pk):
         totalitem = 0
@@ -82,12 +79,12 @@ class ProductDetail(View):
         product = Product.objects.get(pk=pk)
         return render(request, 'app/productdetail.html',locals())
     
-@method_decorator(login_required,name='dispatch')
+
 class CustomerRegistationView(View):
     def get(self, request):
         form = CustomerRegistrationForm()
         totalitem = 0
-        Wishlist=0
+        wishlist=0
         if request.user.is_authenticated:
             totalitem = len(Cart.objects.filter(user=request.user))
             wishitem = len(Wishlist.objects.filter(user=request.user))
@@ -142,7 +139,7 @@ class updateAddress(View):
     def get(self, request, pk):
         add = get_object_or_404(Customer, pk=pk)
         totalitem = 0
-        Wishlist=0
+        wishlist=0
         if request.user.is_authenticated:
             totalitem = len(Cart.objects.filter(user=request.user))
             wishitem = len(Wishlist.objects.filter(user=request.user))
@@ -192,7 +189,7 @@ def show_cart(request):
 class checkout(View):
     def get(self, request):
         totalitem = 0
-        Wishlist=0
+        wishlist=0
         if request.user.is_authenticated:
             totalitem = len(Cart.objects.filter(user=request.user))
             wishitem = len(Wishlist.objects.filter(user=request.user))
@@ -209,7 +206,7 @@ class checkout(View):
 @login_required
 def orders(request):
     totalitem = 0
-    Wishlist=0
+    wishlist=0
     if request.user.is_authenticated:
         totalitem = len(Cart.objects.filter(user=request.user))
         wishitem = len(Wishlist.objects.filter(user=request.user))
