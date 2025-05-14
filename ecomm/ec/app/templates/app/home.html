@@ -2,21 +2,95 @@
 {% load static %}
 {% block title %}Home{% endblock title %}
 
+
 {% block banner-slider %}
 
+<style>
+  .carousel-item {
+    height: 70vh;
+    position: relative;
+  }
+
+  .carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    filter: brightness(0.7); /* Slight dark filter for readability */
+  }
+
+  .banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Optional if image is too bright */
+  }
+
+  .carousel-caption {
+    bottom: 20%;
+    left: 8%;
+    right: auto;
+    text-align: left;
+    z-index: 2;
+  }
+
+  .carousel-caption h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .carousel-caption p {
+    font-size: 1.1rem;
+    color: #e0e0e0;
+  }
+
+  @media (max-width: 768px) {
+    .carousel-caption h1 {
+      font-size: 1.8rem;
+    }
+
+    .carousel-caption p {
+      font-size: 1rem;
+    }
+
+    .carousel-caption {
+      bottom: 10%;
+      left: 5%;
+    }
+  }
+</style>
+
 <div id="carouselExample" class="carousel slide carousel-fade" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="https://images-production.bookshop.org/spree/promo_banner_slides/desktop_images/319/original/ttwh_bookshop_hero_2048x600_v2.jpg?1745933739" class="d-block w-100" alt="banner image">
-      </div>
-      <div class="carousel-item">
-        <img src="https://images-production.bookshop.org/spree/promo_banner_slides/desktop_images/315/original/IWishYouMore_BookshopHeroBanner_2048x600.jpg?1745933629" class="d-block w-100" alt="banner image">
+  <div class="carousel-inner">
+
+    <div class="carousel-item active">
+      <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=2090&auto=format&fit=crop" alt="Book banner">
+      <div class="banner-overlay"></div>
+      <div class="carousel-caption d-none d-md-block">
+        <h1>Discover Your Next<br>Great Read</h1>
+        <p>Support independent bookshops with every purchase</p>
       </div>
     </div>
+
+        <div class="carousel-item active">
+      <img src="https://images.unsplash.com/photo-1519682577862-22b62b24e493?q=80&w=2070&auto=format&fit=crop" alt="Book banner">
+      <div class="banner-overlay"></div>
+      <div class="carousel-caption d-none d-md-block">
+        <h1>Books That Inspire<br>Change & Curiosity</h1>
+        <p>Discover powerful stories and ideas from around the world</p>
+      </div>
+    </div>
+
   </div>
-  <br>
+</div>
+
+<br>
 
 {% endblock banner-slider %}
+
+
 
 {% block information %}
 <div class="container">
